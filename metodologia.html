@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Metodología y Cursos | Fútbol Pro Academy</title>
+  <style>
+    :root {
+      --primary: #0b6b3a;
+      --primary-dark: #084c29;
+      --secondary: #12a05a;
+      --accent: #f3b72f;
+      --dark: #0d1b14;
+      --light-bg: #f4f8f5;
+      --white: #ffffff;
+      --gray: #65736c;
+      --light-gray: #e0e8e3;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: var(--dark); background-color: var(--light-bg); line-height: 1.6; }
+
+    /* Navegación */
+    nav {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 18px 7%; background: var(--white); position: sticky; top: 0; z-index: 100;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    }
+    .logo { font-size: 22px; font-weight: 800; color: var(--primary); text-decoration: none; }
+    .nav-links a { margin-left: 24px; text-decoration: none; color: var(--dark); font-weight: 600; }
+    .nav-links a:hover { color: var(--secondary); }
+
+    /* Header interno */
+    .page-header {
+      padding: 70px 7%; background: linear-gradient(135deg, var(--primary), var(--dark)); color: var(--white); text-align: center;
+    }
+    .page-header h1 { font-size: 44px; margin-bottom: 12px; font-weight: 800; }
+    .page-header p { font-size: 18px; color: #e8f5ed; max-width: 700px; margin: 0 auto; }
+
+    /* Sección de Cursos y Selección */
+    section { padding: 70px 7%; }
+    .courses-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px;
+    }
+    .course-card {
+      background: var(--white); border-radius: 18px; overflow: hidden;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05); display: flex; flex-direction: column; justify-content: space-between;
+      border: 1px solid rgba(0, 0, 0, 0.04);
+    }
+    .course-header {
+      background: var(--primary-dark); color: var(--white); padding: 22px;
+    }
+    .course-body { padding: 25px; }
+    .course-badge {
+      display: inline-block; background: var(--accent); color: #162017; font-size: 12px; font-weight: 800; padding: 4px 10px; border-radius: 20px; margin-bottom: 10px;
+    }
+    .features-list { list-style: none; margin: 15px 0; }
+    .features-list li { margin-bottom: 8px; font-size: 14px; color: var(--gray); position: relative; padding-left: 18px; }
+    .features-list li::before { content: "•"; color: var(--secondary); font-weight: bold; position: absolute; left: 0; }
+    
+    .btn {
+      display: block; text-align: center; padding: 14px; border-radius: 10px; text-decoration: none; font-weight: 800; background: var(--secondary); color: var(--white); transition: background 0.2s;
+    }
+    .btn:hover { background: var(--primary); }
+
+    footer { background: #08120d; color: #9cb0a5; padding: 35px 7%; text-align: center; }
+  </style>
+</head>
+<body>
+
+  <!-- Navegación -->
+  <nav>
+    <a href="index.html" class="logo">⚽ FÚTBOL PRO ACADEMY</a>
+    <div class="nav-links">
+      <a href="index.html">Inicio</a>
+      <a href="metodologia.html" style="color: var(--secondary);">Metodología y Cursos</a>
+      <a href="index.html#planes">Planes</a>
+    </div>
+  </nav>
+
+  <!-- Encabezado -->
+  <header class="page-header">
+    <h1>El Método y Catálogo de Cursos</h1>
+    <p>Conecta la teoría con el rendimiento real en la cancha a través de nuestras rutas estructuradas por niveles, posiciones y objetivos deportivos.</p>
+  </header>
+
+  <!-- Catálogo de Cursos Interactivos -->
+  <section>
+    <h2 style="text-align: center; font-size: 34px; margin-bottom: 10px;">Escoge tu Ruta de Formación</h2>
+    <p style="text-align: center; color: var(--gray); margin-bottom: 45px;">Selecciona el programa especializado que deseas activar en tu cuenta Pro.</p>
+
+    <div class="courses-grid">
+      <!-- Curso 1 -->
+      <div class="course-card">
+        <div>
+          <div class="course-header">
+            <span class="course-badge">TÉCNICA INDIVIDUAL</span>
+            <h3>Dominio de Balón & Primer Toque</h3>
+          </div>
+          <div class="course-body">
+            <p style="font-size: 15px; margin-bottom: 15px;">Domina el esférico bajo presión, mejora tu control orientado y aumenta tu velocidad de ejecución técnica.</p>
+            <ul class="features-list">
+              <li>16 Lecciones prácticas en video HD</li>
+              <li>Ejercicios con ambas piernas</li>
+              <li>Retos de control cronometrados</li>
+              <li>Evaluación de nivel Novato/Promesa</li>
+            </ul>
+          </div>
+        </div>
+        <div style="padding: 0 25px 25px 25px;">
+          <a href="curso-dominio-balon.html" class="btn">Elegir esta Ruta</a>
+        </div>
+      </div>
+
+      <!-- Curso 2 -->
+      <div class="course-card">
+        <div>
+          <div class="course-header">
+            <span class="course-badge">TÁCTICA Y POSICIONAMIENTO</span>
+            <h3>Inteligencia Táctica & Lectura de Juego</h3>
+          </div>
+          <div class="course-body">
+            <p style="font-size: 15px; margin-bottom: 15px;">Comprende los espacios, anticipa las jugadas y toma mejores decisiones tácticas en fase ofensiva y defensiva.</p>
+            <ul class="features-list">
+              <li>Análisis de situaciones reales de partido</li>
+              <li>Ocupación de espacios y transiciones</li>
+              <li>Posicionamiento específico por posición</li>
+              <li>Quizzes y simuladores de decisión</li>
+            </ul>
+          </div>
+        </div>
+        <div style="padding: 0 25px 25px 25px;">
+          <a href="curso-inteligencia-tactica.html" class="btn">Elegir esta Ruta</a>
+        </div>
+      </div>
+
+      <!-- Curso 3 -->
+      <div class="course-card">
+        <div>
+          <div class="course-header">
+            <span class="course-badge">PREPARACIÓN FÍSICA</span>
+            <h3>Velocidad, Agilidad y Prevención</h3>
+          </div>
+          <div class="course-body">
+            <p style="font-size: 15px; margin-bottom: 15px;">Desarrolla potencia explosiva en espacios cortos, coordinación de pies y rutinas de prevención de lesiones comunes.</p>
+            <ul class="features-list">
+              <li>Rutinas de velocidad y arranque</li>
+              <li>Trabajo de propiocepción y estabilidad</li>
+              <li>Ejercicios adaptados sin equipamiento complejo</li>
+              <li>Certificado de resistencia física</li>
+            </ul>
+          </div>
+        </div>
+        <div style="padding: 0 25px 25px 25px;">
+          <a href="curso-velocidad-agilidad.html" class="btn">Elegir esta Ruta</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 Fútbol Pro Academy. Todos los derechos reservados.</p>
+  </footer>
+
+</body>
+</html>

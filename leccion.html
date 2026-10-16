@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula Virtual | Fútbol Pro Academy</title>
+  <style>
+    :root {
+      --primary: #0b6b3a;
+      --primary-dark: #084c29;
+      --secondary: #12a05a;
+      --accent: #f3b72f;
+      --dark: #0d1b14;
+      --light-bg: #f4f8f5;
+      --white: #ffffff;
+      --gray: #65736c;
+      --light-gray: #e0e8e3;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: var(--dark); background-color: var(--light-bg); line-height: 1.6; }
+
+    /* Navegación */
+    nav {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 18px 7%; background: var(--white); position: sticky; top: 0; z-index: 100;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    }
+    .logo { font-size: 22px; font-weight: 800; color: var(--primary); text-decoration: none; }
+    .nav-links a { margin-left: 20px; text-decoration: none; color: var(--dark); font-weight: 600; }
+    .nav-links a:hover { color: var(--secondary); }
+
+    /* Layout Principal: Video/Contenido a la izquierda, lista de lecciones a la derecha */
+    .classroom-container {
+      display: grid;
+      grid-template-columns: 2.2fr 1fr;
+      gap: 30px;
+      padding: 40px 7%;
+      min-height: calc(100vh - 80px);
+    }
+
+    /* Sección Principal del Video */
+    .main-content {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+    }
+
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%; /* Relación de aspecto 16:9 */
+      height: 0;
+      overflow: hidden;
+      border-radius: 14px;
+      background: #000;
+      margin-bottom: 20px;
+    }
+
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .lesson-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid var(--light-bg);
+    }
+
+    .lesson-title { font-size: 26px; color: var(--primary); font-weight: 800; }
+    .module-badge { background: #eaf6ee; color: var(--primary); padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+
+    .btn-complete {
+      background: var(--secondary);
+      color: var(--white);
+      border: none;
+      padding: 12px 22px;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 15px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s;
+    }
+
+    .btn-complete:hover { background: var(--primary); }
+    .btn-complete.completed { background: var(--gray); cursor: default; }
+
+    .lesson-body { margin-top: 20px; }
+    .lesson-body h3 { font-size: 18px; margin-bottom: 10px; }
+    .lesson-body p { color: var(--dark); font-size: 16px; margin-bottom: 20px; }
+
+    .material-box {
+      background: var(--light-bg);
+      border: 1px solid var(--light-gray);
+      padding: 16px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    .btn-material {
+      background: var(--primary);
+      color: var(--white);
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    /* Barra Lateral de Lecciones */
+    .sidebar {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+      height: fit-content;
+    }
+
+    .sidebar h3 { font-size: 20px; margin-bottom: 15px; border-bottom: 2px solid var(--light-bg); padding-bottom: 10px; }
+    
+    .playlist { list-style: none; }
+    .playlist-item {
+      padding: 14px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      background: var(--light-bg);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.2s;
+    }
+
+    .playlist-item:hover { background: #e0eee5; }
+    .playlist-item.active { background: var(--primary); color: var(--white); }
+    .playlist-item.active .status-icon { color: var(--accent); }
+
+    .playlist-info h4 { font-size: 14px; margin-bottom: 4px; }
+    .playlist-info span { font-size: 12px; opacity: 0.8; }
+
+    footer { background: #08120d; color: #9cb0a5; padding: 30px 7%; text-align: center; margin-top: 40px; }
+
+    @media (max-width: 900px) {
+      .classroom-container { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navegación -->
+  <nav>
+    <a href="index.html" class="logo">⚽ FÚTBOL PRO ACADEMY</a>
+    <div class="nav-links">
+      <a href="mis-cursos.html">Volver a Mi Aula</a>
+      <a href="index.html">Inicio</a>
+    </div>
+  </nav>
+
+  <!-- Contenedor del Aula -->
+  <main class="classroom-container">
+    
+    <!-- Reproductor y Detalle de la Lección -->
+    <section class="main-content">
+      <div class="video-wrapper">
+        <iframe id="video-player" src="" allowfullscreen></iframe>
+      </div>
+
+      <div class="lesson-header">
+        <div>
+          <span class="module-badge" id="module-name">Cargando Módulo...</span>
+          <h1 class="lesson-title" id="lesson-title">Cargando Lección...</h1>
+        </div>
+        <button class="btn-complete" id="complete-btn">
+          <span>✓</span> <span id="complete-btn-text">Marcar como completada</span>
+        </button>
+      </div>
+
+      <div class="lesson-body">
+        <h3>Explicación de la Sesión</h3>
+        <p id="lesson-content">Cargando instrucciones de la lección...</p>
+
+        <div class="material-box" id="material-box" style="display: none;">
+          <div>
+            <strong>Material Complementario</strong>
+            <p style="font-size: 13px; color: var(--gray);">Descarga la guía o ficha práctica en PDF para entrenar en cancha.</p>
+          </div>
+          <a href="#" id="material-link" target="_blank" class="btn-material">Descargar Material</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Lista de Lecciones del Curso -->
+    <aside class="sidebar">
+      <h3 id="course-sidebar-title">Contenido del Curso</h3>
+      <ul class="playlist" id="playlist-container">
+        <li style="color: var(--gray); font-size: 14px;">Cargando lecciones...</li>
+      </ul>
+    </aside>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 Fútbol Pro Academy. Todos los derechos reservados.</p>
+  </footer>
+
+  <!-- Script Dinámico conectado a Firestore -->
+  <script type="module">
+    import { auth, db } from "./js/firebase-config.js";
+    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { collection, query, where, getDocs, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    // Obtener courseId de la URL (ej: leccion.html?courseId=Curso 1)
+    const urlParams = new URLSearchParams(window.location.search);
+    const courseId = urlParams.get("courseId");
+
+    const videoPlayer = document.getElementById("video-player");
+    const lessonTitle = document.getElementById("lesson-title");
+    const moduleName = document.getElementById("module-name");
+    const lessonContent = document.getElementById("lesson-content");
+    const materialBox = document.getElementById("material-box");
+    const materialLink = document.getElementById("material-link");
+    const playlistContainer = document.getElementById("playlist-container");
+    const completeBtn = document.getElementById("complete-btn");
+    const completeBtnText = document.getElementById("complete-btn-text");
+
+    let currentUser = null;
+    let currentLesson = null;
+    let lessonsList = [];
+    let completedLessons = new Set();
+
+    // Convertir URLs de YouTube estándar a URLs de incrustación (embed)
+    function formatEmbedUrl(url) {
+      if (!url) return "";
+      if (url.includes("youtube.com/watch?v=")) {
+        return url.replace("watch?v=", "embed/");
+      } else if (url.includes("youtu.be/")) {
+        const id = url.split("youtu.be/")[1].split("?")[0];
+        return `https://www.youtube.com/embed/${id}`;
+      }
+      return url;
+    }
+
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        currentUser = user;
+        if (!courseId) {
+          alert("No se especificó ningún curso.");
+          window.location.href = "mis-cursos.html";
+          return;
+        }
+
+        await cargarProgresoUsuario();
+        await cargarLeccionesCurso();
+      } else {
+        window.location.href = "login.html";
+      }
+    });
+
+    // Cargar lecciones completadas previamente por el usuario desde Firestore (colección progress)
+    async function cargarProgresoUsuario() {
+      try {
+        const progressRef = collection(db, "progress");
+        const q = query(progressRef, where("userId", "==", currentUser.uid), where("courseId", "==", courseId));
+        const querySnap = await getDocs(q);
+        
+        completedLessons.clear();
+        querySnap.forEach((docSnap) => {
+          completedLessons.add(docSnap.data().lessonId);
+        });
+      } catch (error) {
+        console.error("Error al cargar progreso:", error);
+      }
+    }
+
+    // Cargar todas las lecciones del curso desde la colección lessons
+    async function cargarLeccionesCurso() {
+      try {
+        const lessonsRef = collection(db, "lessons");
+        const q = query(lessonsRef, where("courseId", "==", courseId));
+        const querySnap = await getDocs(q);
+
+        lessonsList = [];
+        querySnap.forEach((docSnap) => {
+          lessonsList.push({ id: docSnap.id, ...docSnap.data() });
+        });
+
+        // Ordenar por el campo order
+        lessonsList.sort((a, b) => (a.order || 0) - (b.order || 0));
+
+        if (lessonsList.length === 0) {
+          playlistContainer.innerHTML = "<p style='font-size:14px; color:var(--gray);'>No hay lecciones registradas para este curso.</p>";
+          lessonTitle.textContent = "Sin contenido";
+          lessonContent.textContent = "El administrador aún no ha subido lecciones a este programa.";
+          return;
+        }
+
+        renderizarPlaylist();
+        seleccionarLeccion(lessonsList[0]);
+
+      } catch (error) {
+        console.error("Error al cargar lecciones:", error);
+        playlistContainer.innerHTML = "<p style='color:red;'>Error al cargar el temario.</p>";
+      }
+    }
+
+    // Dibujar la lista de lecciones en la barra lateral
+    function renderizarPlaylist() {
+      playlistContainer.innerHTML = "";
+      lessonsList.forEach((lesson, index) => {
+        const isCompleted = completedLessons.has(lesson.id);
+        const li = document.createElement("li");
+        li.className = `playlist-item ${currentLesson && currentLesson.id === lesson.id ? 'active' : ''}`;
+        li.innerHTML = `
+          <div class="playlist-info">
+            <h4>${index + 1}. ${lesson.title}</h4>
+            <span>Módulo ${lesson.moduleNumber || 1}: ${lesson.moduleName || ''}</span>
+          </div>
+          <div class="status-icon">${isCompleted ? '✓' : '▶'}</div>
+        `;
+
+        li.addEventListener("click", () => seleccionarLeccion(lesson));
+        playlistContainer.appendChild(li);
+      });
+    }
+
+    // Mostrar la lección activa en la pantalla
+    function seleccionarLeccion(lesson) {
+      currentLesson = lesson;
+      renderizarPlaylist();
+
+      lessonTitle.textContent = lesson.title || "Sin título";
+      moduleName.textContent = `Módulo ${lesson.moduleNumber || 1}: ${lesson.moduleName || 'General'}`;
+      lessonContent.textContent = lesson.content || "Sin descripción proporcionada.";
+      videoPlayer.src = formatEmbedUrl(lesson.videoUrl);
+
+      if (lesson.materialUrl) {
+        materialBox.style.display = "flex";
+        materialLink.href = lesson.materialUrl;
+      } else {
+        materialBox.style.display = "none";
+      }
+
+      actualizarEstadoBotonCompletado();
+    }
+
+    function actualizarEstadoBotonCompletado() {
+      if (completedLessons.has(currentLesson.id)) {
+        completeBtn.classList.add("completed");
+        completeBtnText.textContent = "Completada";
+      } else {
+        completeBtn.classList.remove("completed");
+        completeBtnText.textContent = "Marcar como completada";
+      }
+    }
+
+    // Guardar avance en Firestore al presionar el botón de completar
+    completeBtn.addEventListener("click", async () => {
+      if (!currentLesson || completedLessons.has(currentLesson.id)) return;
+
+      try {
+        const progressDocId = `${currentUser.uid}_${currentLesson.id}`;
+        await setDoc(doc(db, "progress", progressDocId), {
+          userId: currentUser.uid,
+          courseId: courseId,
+          lessonId: currentLesson.id,
+          completedAt: new Date()
+        });
+
+        completedLessons.add(currentLesson.id);
+        actualizarEstadoBotonCompletado();
+        renderizarPlaylist();
+        alert("¡Excelente trabajo! Lección marcada como completada.");
+
+      } catch (error) {
+        console.error("Error al guardar progreso:", error);
+        alert("No se pudo guardar el progreso. Intenta de nuevo.");
+      }
+    });
+  </script>
+
+</body>
+</html>

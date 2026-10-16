@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acceso | Fútbol Pro Academy</title>
+  <style>
+    :root { --primary: #0b6b3a; --secondary: #12a05a; --dark: #0d1b14; --light-bg: #f4f8f5; --white: #ffffff; --gray: #65736c; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--light-bg); color: var(--dark); display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+    .login-card { background: var(--white); padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); width: 100%; max-width: 400px; }
+    .logo { font-size: 20px; font-weight: 800; color: var(--primary); text-align: center; margin-bottom: 24px; display: block; text-decoration: none; }
+    h2 { font-size: 24px; margin-bottom: 20px; text-align: center; }
+    .form-group { margin-bottom: 16px; }
+    label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+    input { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; font-size: 14px; }
+    button { width: 100%; padding: 12px; background: var(--secondary); color: var(--white); border: none; border-radius: 8px; font-weight: 700; font-size: 16px; cursor: pointer; margin-top: 10px; }
+    button:hover { background: var(--primary); }
+    .btn-google { background: #db4437; margin-top: 8px; display: flex; justify-content: center; align-items: center; gap: 10px; }
+    .btn-google:hover { background: #c23321; }
+    .divider { text-align: center; margin: 15px 0; color: var(--gray); font-size: 13px; position: relative; }
+    .switch-mode { text-align: center; margin-top: 16px; font-size: 14px; }
+    .switch-mode a { color: var(--primary); text-decoration: none; font-weight: bold; cursor: pointer; }
+    .error-msg { color: #e53e3e; font-size: 13px; text-align: center; margin-top: 10px; }
+  </style>
+</head>
+<body>
+
+  <div class="login-card">
+    <a href="index.html" class="logo">⚽ FÚTBOL PRO ACADEMY</a>
+    <h2 id="form-title">Iniciar Sesión</h2>
+    
+    <form id="auth-form">
+      <div class="form-group" id="name-group" style="display: none;">
+        <label>Nombre completo</label>
+        <input type="text" id="name" placeholder="Tu nombre">
+      </div>
+      <div class="form-group">
+        <label>Correo electrónico</label>
+        <input type="email" id="email" required placeholder="tucorreo@email.com">
+      </div>
+      <div class="form-group">
+        <label>Contraseña</label>
+        <input type="password" id="password" required placeholder="••••••••">
+      </div>
+      <button type="submit" id="submit-btn">Ingresar</button>
+      <p class="error-msg" id="error-msg"></p>
+    </form>
+
+    <div class="divider">o continúa con</div>
+    <button type="button" class="btn-google" id="google-btn">
+      <span>🌐</span> Entrar con Google
+    </button>
+
+    <div class="switch-mode">
+      <p id="switch-text">¿No tienes cuenta? <a id="toggle-mode">Regístrate aquí</a></p>
+    </div>
+  </div>
+
+  <!-- Script principal de autenticación -->
+  <script type="module" src="js/auth.js"></script>
+</body>
+</html>

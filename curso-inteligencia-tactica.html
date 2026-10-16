@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inteligencia Táctica & Lectura de Juego | Fútbol Pro Academy</title>
+  <style>
+    :root {
+      --primary: #0b6b3a;
+      --primary-dark: #084c29;
+      --secondary: #12a05a;
+      --accent: #f3b72f;
+      --dark: #0d1b14;
+      --light-bg: #f4f8f5;
+      --white: #ffffff;
+      --gray: #65736c;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: var(--dark); background-color: var(--light-bg); line-height: 1.6; }
+    
+    nav { display: flex; justify-content: space-between; align-items: center; padding: 18px 7%; background: var(--white); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+    .logo { font-size: 22px; font-weight: 800; color: var(--primary); text-decoration: none; }
+    .nav-links a { margin-left: 24px; text-decoration: none; color: var(--dark); font-weight: 600; }
+    .nav-links a:hover { color: var(--secondary); }
+
+    .hero { padding: 60px 7%; background: linear-gradient(135deg, var(--primary), var(--dark)); color: var(--white); }
+    .badge { display: inline-block; background: var(--accent); color: #162017; padding: 6px 14px; border-radius: 20px; font-weight: 800; font-size: 13px; margin-bottom: 12px; }
+    .hero h1 { font-size: 42px; margin-bottom: 16px; font-weight: 800; }
+    .hero p { font-size: 18px; color: #e8f5ed; max-width: 800px; margin-bottom: 25px; }
+
+    .content-grid { padding: 60px 7%; display: grid; grid-template-columns: 2fr 1fr; gap: 40px; }
+    .card { background: var(--white); padding: 30px; border-radius: 18px; box-shadow: 0 8px 30px rgba(0,0,0,0.05); margin-bottom: 25px; }
+    .card h2 { font-size: 26px; color: var(--primary); margin-bottom: 18px; border-bottom: 2px solid var(--light-bg); padding-bottom: 10px; }
+    
+    .module-item { margin-bottom: 20px; padding: 15px; border-left: 4px solid var(--secondary); background: var(--light-bg); border-radius: 0 10px 10px 0; }
+    .module-item h4 { font-size: 18px; margin-bottom: 6px; }
+
+    .sidebar-card { background: var(--white); padding: 30px; border-radius: 18px; box-shadow: 0 8px 30px rgba(0,0,0,0.08); position: sticky; top: 100px; border: 2px solid var(--secondary); }
+    .price { font-size: 36px; font-weight: 800; color: var(--primary); margin: 15px 0; }
+    
+    .btn { display: block; text-align: center; padding: 15px; border-radius: 10px; text-decoration: none; font-weight: 800; background: var(--secondary); color: var(--white); transition: background 0.2s; }
+    .btn:hover { background: var(--primary); }
+    .btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); margin-top: 10px; }
+
+    footer { background: #08120d; color: #9cb0a5; padding: 35px 7%; text-align: center; margin-top: 40px; }
+    @media (max-width: 900px) { .content-grid { grid-template-columns: 1fr; } .sidebar-card { position: static; } }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="logo">⚽ FÚTBOL PRO ACADEMY</a>
+    <div class="nav-links">
+      <a href="index.html">Inicio</a>
+      <a href="metodologia.html">Metodología y Cursos</a>
+      <a href="index.html#planes">Planes</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <span class="badge">TÁCTICA Y POSICIONAMIENTO</span>
+    <h1>Inteligencia Táctica & Lectura de Juego</h1>
+    <p>Aprende a interpretar el terreno de juego, anticipar los movimientos rivales, ubicar los espacios libres y tomar decisiones óptimas en fracciones de segundo[cite: 1].</p>
+  </header>
+
+  <main class="content-grid">
+    <div>
+      <div class="card">
+        <h2>Descripción del Programa</h2>
+        <p>El fútbol moderno lo ganan quienes piensan más rápido. Este programa combina el análisis de jugadas en video interactivo con simuladores teóricos de toma de decisiones para enseñarte los principios de la ocupación de espacios, desmarques y cobertura defensiva según tu posición en el campo[cite: 1].</p>
+      </div>
+
+      <div class="card">
+        <h2>Estructura del Contenido</h2>
+        <div class="module-item">
+          <h4>Módulo 1: Ocupación de Espacios y Desmarques</h4>
+          <p>Líneas de pase, creación de líneas diagonales y apoyo en fase de inicio y creación[cite: 1].</p>
+        </div>
+        <div class="module-item">
+          <h4>Módulo 2: Transiciones Ofensivas y Defensivas</h4>
+          <p>Presión tras pérdida, repliegue ordenado y ataques rápidos en superioridad numérica[cite: 1].</p>
+        </div>
+        <div class="module-item">
+          <h4>Módulo 3: Análisis Táctico por Posiciones</h4>
+          <p>Funciones específicas para defensas, mediocampistas, extremos y delanteros centro[cite: 1].</p>
+        </div>
+        <div class="module-item">
+          <h4>Módulo 4: Simuladores de Toma de Decisiones</h4>
+          <p>Video-quizzes y escenarios reales de partido para evaluar tu nivel táctico[cite: 1].</p>
+        </div>
+      </div>
+    </div>
+
+    <aside>
+      <div class="sidebar-card">
+        <h3>Detalles de la Ruta</h3>
+        <div class="price">$29.900 <span style="font-size: 14px; font-weight: normal; color: var(--gray);">COP / mes</span></div>
+        <p style="font-size: 14px; color: var(--gray); margin-bottom: 20px;">Acceso incluido en el Plan Jugador Pro con todos los módulos y certificados[cite: 1, 12].</p>
+        
+        <a href="login.html" class="btn">Inscribirme a este Curso</a>
+        <a href="metodologia.html" class="btn btn-outline">Volver a Metodología</a>
+      </div>
+    </aside>
+  </main>
+
+  <footer>
+    <p>© 2026 Fútbol Pro Academy. Todos los derechos reservados.</p>
+  </footer>
+
+</body>
+</html>

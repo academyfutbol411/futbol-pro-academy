@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fútbol Pro Academy | El primer LMS de Formación Futbolística</title>
+  <style>
+    :root {
+      --primary: #0b6b3a;
+      --primary-dark: #084c29;
+      --secondary: #12a05a;
+      --accent: #f3b72f;
+      --dark: #0d1b14;
+      --light-bg: #f4f8f5;
+      --white: #ffffff;
+      --gray: #65736c;
+      --light-gray: #e0e8e3;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: var(--dark);
+      background-color: var(--light-bg);
+      line-height: 1.6;
+    }
+
+    /* Navegación */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 7%;
+      background: var(--white);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--primary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-links a {
+      margin-left: 24px;
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--secondary);
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 90px 7%;
+      background: linear-gradient(135deg, var(--primary), var(--dark));
+      color: var(--white);
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .tag {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.15);
+      color: #e8f5ed;
+      padding: 6px 14px;
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .hero h1 {
+      font-size: 52px;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      font-weight: 800;
+    }
+
+    .hero p {
+      font-size: 19px;
+      color: #e8f5ed;
+      margin-bottom: 30px;
+      max-width: 620px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 15px 28px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 16px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #162017;
+    }
+
+    .btn-secondary {
+      border: 2px solid var(--white);
+      color: var(--white);
+      margin-left: 12px;
+    }
+
+    /* Tarjeta Interactiva de Resumen */
+    .hero-widget {
+      background: var(--white);
+      color: var(--dark);
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    }
+
+    .widget-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .progress-bar {
+      height: 12px;
+      background: var(--light-gray);
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 10px 0 18px 0;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 65%;
+      background: var(--secondary);
+    }
+
+    .widget-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 20px;
+      background: var(--light-bg);
+      padding: 15px;
+      border-radius: 12px;
+    }
+
+    /* Secciones Generales */
+    section {
+      padding: 80px 7%;
+    }
+
+    section h2 {
+      text-align: center;
+      font-size: 38px;
+      margin-bottom: 12px;
+      font-weight: 800;
+    }
+
+    .section-lead {
+      text-align: center;
+      color: var(--gray);
+      max-width: 760px;
+      margin: 0 auto 45px auto;
+      font-size: 18px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+    }
+
+    .card {
+      background: var(--white);
+      padding: 30px;
+      border-radius: 18px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+      border: 1px solid rgba(0, 0, 0, 0.03);
+    }
+
+    .icon {
+      font-size: 36px;
+      margin-bottom: 16px;
+    }
+
+    /* Seccion Problema/Solución */
+    .problem-solution {
+      background: var(--white);
+    }
+
+    .versus-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+
+    .versus-box {
+      padding: 35px;
+      border-radius: 18px;
+    }
+
+    .versus-box.problem {
+      background: #fff5f5;
+      border-left: 6px solid #e53e3e;
+    }
+
+    .versus-box.solution {
+      background: #f0fff4;
+      border-left: 6px solid var(--secondary);
+    }
+
+    .versus-box h3 {
+      font-size: 24px;
+      margin-bottom: 15px;
+    }
+
+    .versus-box ul {
+      list-style-type: none;
+    }
+
+    .versus-box li {
+      margin-bottom: 12px;
+      padding-left: 24px;
+      position: relative;
+    }
+
+    .versus-box.problem li::before {
+      content: "❌";
+      position: absolute;
+      left: 0;
+    }
+
+    .versus-box.solution li::before {
+      content: "⚽";
+      position: absolute;
+      left: 0;
+    }
+
+    /* Gamificación & Niveles */
+    .gamification-section {
+      background: var(--dark);
+      color: var(--white);
+    }
+
+    .level-badge {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 20px;
+      border-radius: 14px;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .level-badge h4 {
+      color: var(--accent);
+      margin-top: 8px;
+    }
+
+    /* Audiencias */
+    .audience-card {
+      text-align: center;
+    }
+
+    /* Precios */
+    .price-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .price-card.featured {
+      border: 2px solid var(--secondary);
+      transform: scale(1.03);
+    }
+
+    .price-tag {
+      font-size: 38px;
+      font-weight: 800;
+      color: var(--primary);
+      margin: 15px 0;
+    }
+
+    .price-period {
+      font-size: 15px;
+      color: var(--gray);
+      font-weight: 400;
+    }
+
+    .feature-list {
+      list-style: none;
+      margin: 20px 0;
+    }
+
+    .feature-list li {
+      margin-bottom: 10px;
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .feature-list li::before {
+      content: "✓";
+      color: var(--secondary);
+      font-weight: bold;
+      position: absolute;
+      left: 0;
+    }
+
+    /* Footer */
+    footer {
+      background: #08120d;
+      color: #9cb0a5;
+      padding: 40px 7%;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    @media (max-width: 900px) {
+      .hero, .versus-container, .grid-3, .grid-4 {
+        grid-template-columns: 1fr;
+      }
+      .price-card.featured {
+        transform: none;
+      }
+      .hero h1 {
+        font-size: 38px;
+      }
+      .nav-links {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navegación Principal -->
+  <nav>
+    <a href="#" class="logo">⚽ FÚTBOL PRO ACADEMY</a>
+ <div class="nav-links">
+  <a href="metodologia.html">Metodología</a>
+  <a href="#programas">Programas</a>
+  <a href="#audiencias">Para Quién Es</a>
+  <a href="#planes">Planes</a>
+</div>
+  </nav>
+
+  <!-- Hero Section Principal -->
+  <header class="hero">
+    <div>
+      <span class="tag">LMS Deportivo Especializado</span>
+      <h1>Entrena con propósito. Aprende con metodología. Mide tu progreso.</h1>
+      <p>Convertimos el contenido futbolístico disperso de internet en una ruta de entrenamiento inteligente, estructurada y personalizada según tu edad, posición y nivel deportivo.</p>
+      <a href="login.html" class="btn btn-primary">Comienza Hoy</a>
+      <a href="metodologia.html" class="btn btn-secondary">Conocer Metodología</a>
+    </div>
+    
+    <!-- Componente del Sistema LMS -->
+    <div class="hero-widget">
+      <div class="widget-header">
+        <strong>Ruta: Extremo Ofensivo</strong>
+        <span style="color: var(--secondary); font-weight: 700;">Nivel 3 — Competidor</span>
+      </div>
+      <p style="color: var(--gray); font-size: 14px;">Módulo Activo: Finalización & Control Orientado</p>
+      <div class="progress-bar">
+        <div class="progress-fill"></div>
+      </div>
+      <p style="font-size: 14px;"><b>65%</b> completado de esta ruta</p>
+      
+      <div class="widget-stats">
+        <div>
+          <small style="color: var(--gray);">Racha Activa</small>
+          <p style="font-size: 18px; font-weight: 800;">🔥 12 Días</p>
+        </div>
+        <div>
+          <small style="color: var(--gray);">Desafío Semanal</small>
+          <p style="font-size: 18px; font-weight: 800;">🎯 80/100 Pts</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Problema vs Solución -->
+  <section class="problem-solution">
+    <h2>El Talento Sobra. La Estructura Falta.</h2>
+    <p class="section-lead">De nada sirve consumir cientos de videos en redes sociales si no tienes una metodología clara que guíe tu entrenamiento diario.</p>
+    
+    <div class="versus-container">
+      <div class="versus-box problem">
+        <h3>El Caos Digital Actual</h3>
+        <ul>
+          <li>Contenido disperso y aleatorio en YouTube, Instagram y TikTok.</li>
+          <li>Falsa ilusión de progreso al ver videos sin practicarlos en cancha.</li>
+          <li>Ausencia de rutas personalizadas según edad, posición y objetivos.</li>
+          <li>Sin medición de rendimiento ni métricas claras de avance real.</li>
+        </ul>
+      </div>
+      <div class="versus-box solution">
+        <h3>El Estándar Fútbol Pro Academy</h3>
+        <ul>
+          <li>Rutas de aprendizaje secuenciales diseñadas por profesionales.</li>
+          <li>Sesiones estructuradas: video explicativo + ejercicio práctico + evaluación.</li>
+          <li>Formación integral: Técnica, Táctica, Física y Mentalidad.</li>
+          <li>Sistema de gamificación con puntos, niveles y seguimiento continuo.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Módulos de Entrenamiento -->
+  <section id="programas">
+    <h2>Formación Integral en 4 Dimensiones</h2>
+    <p class="section-lead">Accede a una biblioteca organizada de lecciones en video, rutinas de campo y sesiones teóricas adaptadas a tu nivel.</p>
+    
+    <div class="grid-4">
+      <div class="card">
+        <div class="icon">⚽</div>
+        <h3>Técnica Individual</h3>
+        <p>Control orientado, conducción, pase con ambas piernas, regate y definición de alta precisión.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🧠</div>
+        <h3>Táctica & Lectura</h3>
+        <p>Ocupación de espacios, perfil corporal, transiciones ofensivas/defensivas y toma de decisiones.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🏃</div>
+        <h3>Preparación Física</h3>
+        <p>Coordinación, velocidad de reacción, resistencia específica, fuerza y prevención de lesiones.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🎯</div>
+        <h3>Mentalidad Competitiva</h3>
+        <p>Concentración bajo presión, disciplina de entrenamiento, autoconfianza y resiliencia.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gamificación -->
+  <section class="gamification-section">
+    <h2 style="color: var(--white);">Un Proceso Guiado y Adictivo</h2>
+    <p class="section-lead" style="color: #cbd9d0;">Convierte tu disciplina diaria en recompensas, insignias y ascensos de nivel dentro de la academia.</p>
+    
+    <div class="grid-4" style="margin-top: 40px;">
+      <div class="level-badge">
+        <div style="font-size: 28px;">🥉</div>
+        <h4>Nivel 1 — Novato</h4>
+        <p style="font-size: 13px; color: #a0b3a8;">Fundamentos y control básico</p>
+      </div>
+      <div class="level-badge">
+        <div style="font-size: 28px;">🥈</div>
+        <h4>Nivel 2 — Promesa</h4>
+        <p style="font-size: 13px; color: #a0b3a8;">Técnica fluida y ritmo</p>
+      </div>
+      <div class="level-badge" style="border-color: var(--accent);">
+        <div style="font-size: 28px;">🥇</div>
+        <h4>Nivel 3 — Competidor</h4>
+        <p style="font-size: 13px; color: #a0b3a8;">Táctica y toma de decisiones</p>
+      </div>
+      <div class="level-badge">
+        <div style="font-size: 28px;">💎</div>
+        <h4>Nivel 5 — Élite</h4>
+        <p style="font-size: 13px; color: #a0b3a8;">Alto rendimiento integral</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Para quién es -->
+  <section id="audiencias">
+    <h2>Ecosistema Diseñado para el Ecosistema Futbolístico</h2>
+    <p class="section-lead">Acompañamos el proceso de formación deportiva en todas sus etapas.</p>
+    
+    <div class="grid-3">
+      <div class="card audience-card">
+        <div class="icon">🏃‍♂️</div>
+        <h3>Jugadores (10–25 años)</h3>
+        <p>Desarrolla habilidades complementarias fuera de tus entrenamientos habituales y mide tu evolución constante.</p>
+      </div>
+      <div class="card audience-card">
+        <div class="icon">📋</div>
+        <h3>Entrenadores & Academias</h3>
+        <p>Organiza sesiones, asigna tareas digitales a tus dirigidos y realiza un seguimiento detallado del rendimiento de tu plantilla.</p>
+      </div>
+      <div class="card audience-card">
+        <div class="icon">👨‍👩‍👧</div>
+        <h3>Padres de Familia</h3>
+        <p>Monitorea y respalda el proceso formativo, la disciplina y el avance deportivo de tus hijos de forma cuantitativa.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Planes de Precios -->
+  <section id="planes" style="background: var(--white);">
+    <h2>Suscripciones y Planes</h2>
+    <p class="section-lead">Elige el plan que se adapte a tus metas individuales o a la gestión de tu escuela de fútbol.</p>
+    
+    <div class="grid-3">
+      <!-- Plan Gratuito -->
+      <div class="card price-card">
+        <div>
+          <h3>Plan inicial</h3>
+          <p style="color: var(--gray);">Para comenzar tu proceso</p>
+          <div class="price-tag">$19.900 <span class="price-period">/ COP/mes</span></div>
+          <ul class="feature-list">
+            <li>Acceso a cursos introductorios</li>
+            <li>Perfil básico de jugador</li>
+            <li>Retos semanales abiertos</li>
+            <li>Ruta de nivel Novato</li>
+          </ul>
+        </div>
+        <a href="#" class="btn btn-secondary" style="border-color: var(--primary); color: var(--primary); text-align: center;">empezar ahora</a>
+      </div>
+
+      <!-- Plan Jugador Pro -->
+      <div class="card price-card featured">
+        <div>
+          <span class="tag" style="background: var(--secondary); color: white;">Recomendado</span>
+          <h3>Jugador Pro</h3>
+          <p style="color: var(--gray);">Formación individual completa</p>
+          <div class="price-tag">$29.900 <span class="price-period">COP / mes</span></div>
+          <ul class="feature-list">
+            <li>Acceso ilimitado a todas las rutas</li>
+            <li>Módulos de Técnica, Táctica y Física</li>
+            <li>Seguimiento de racha e insignias</li>
+            <li>Evaluaciones de nivel mensuales</li>
+            <li>Certificados digitales de avance</li>
+          </ul>
+        </div>
+        <a href="#" class="btn btn-primary" style="text-align: center;">Comenzar Prueba Pro</a>
+      </div>
+
+      <!-- Plan Academia -->
+      <div class="card price-card">
+        <div>
+          <h3>Plan Academia</h3>
+          <p style="color: var(--gray);">Para escuelas y equipos B2B</p>
+          <div class="price-tag">$149.900 <span class="price-period">COP / mes</span></div>
+          <ul class="feature-list">
+            <li>Licencias grupales para jugadores</li>
+            <li>Panel administrativo para entrenadores</li>
+            <li>Gestión de equipos y métricas</li>
+            <li>Publicación de contenidos privados</li>
+            <li>Soporte y asesoría metodológica</li>
+          </ul>
+        </div>
+        <a href="#" class="btn btn-secondary" style="border-color: var(--primary); color: var(--primary); text-align: center;">Solicitar Acceso B2B</a>
+      </div>
+    </div>
+  </section>
+  <!-- Sección CRM: Quiero Saber Más / Registro de Leads -->
+  <section id="saber-mas" style="background: linear-gradient(135deg, var(--primary), var(--dark)); color: var(--white); padding: 70px 7%;">
+    <div style="max-width: 650px; margin: 0 auto; text-align: center;">
+      <span class="tag" style="background: rgba(255,255,255,0.2);">¿Tienes dudas?</span>
+      <h2 style="color: var(--white); font-size: 36px; margin-bottom: 12px;">¡Quiero saber más!</h2>
+      <p style="color: #e8f5ed; font-size: 17px; margin-bottom: 30px;">
+        Déjanos tu correo y teléfono para enviarte toda la información detallada de la metodología, los programas y un cupón con descuento especial.
+      </p>
+
+      <form id="lead-form" style="background: var(--white); padding: 30px; border-radius: 18px; box-shadow: 0 15px 35px rgba(0,0,0,0.2); text-align: left;">
+        <div style="margin-bottom: 16px;">
+          <label style="display: block; font-size: 14px; font-weight: 700; color: var(--dark); margin-bottom: 6px;">Nombre completo</label>
+          <input type="text" id="lead-name" required placeholder="Tu nombre y apellido" style="width: 100%; padding: 12px; border: 1px solid var(--light-gray); border-radius: 8px; font-size: 14px;">
+        </div>
+
+        <div style="margin-bottom: 16px;">
+          <label style="display: block; font-size: 14px; font-weight: 700; color: var(--dark); margin-bottom: 6px;">Correo electrónico</label>
+          <input type="email" id="lead-email" required placeholder="tucorreo@email.com" style="width: 100%; padding: 12px; border: 1px solid var(--light-gray); border-radius: 8px; font-size: 14px;">
+        </div>
+
+        <div style="margin-bottom: 16px;">
+          <label style="display: block; font-size: 14px; font-weight: 700; color: var(--dark); margin-bottom: 6px;">Programa de interés</label>
+          <select id="lead-interest" style="width: 100%; padding: 12px; border: 1px solid var(--light-gray); border-radius: 8px; font-size: 14px; background: white;">
+            <option value="General">Información General</option>
+            <option value="Dominio de Balon">Técnica Individual & Control</option>
+            <option value="Inteligencia Tactica">Inteligencia Táctica</option>
+            <option value="Preparacion Fisica">Preparación Física & Prevención</option>
+            <option value="Plan Academia">Plan Academia (Grupal / B2B)</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; border: none; font-size: 16px; margin-top: 10px;">Enviarme Información</button>
+        <p id="lead-msg" style="text-align: center; font-weight: bold; margin-top: 12px; font-size: 14px;"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 Fútbol Pro Academy. Todos los derechos reservados.</p>
+    <p style="font-size: 13px; margin-top: 8px;">El primer LMS especializado en el desarrollo del ecosistema futbolístico latinoamericano.</p>
+  </footer>
+  <script type="module">
+    import { db } from "./js/firebase-config.js";
+    import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    const leadForm = document.getElementById("lead-form");
+    const leadMsg = document.getElementById("lead-msg");
+
+    leadForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      leadMsg.textContent = "Enviando tu solicitud...";
+      leadMsg.style.color = "var(--primary)";
+
+      const name = document.getElementById("lead-name").value;
+      const email = document.getElementById("lead-email").value;
+      const interest = document.getElementById("lead-interest").value;
+
+      try {
+        // Guardar prospecto en la colección "leads" (Modulo CRM)
+        await addDoc(collection(db, "leads"), {
+          name: name,
+          email: email,
+          courseInterest: interest,
+          stage: "nuevo", // Etapa inicial del embudo CRM
+          source: "Landing Page Form",
+          consent: true,
+          createdAt: new Date()
+        });
+
+        leadMsg.textContent = "¡Gracias por registrarte! Te enviamos la información al correo.";
+        leadMsg.style.color = "#12a05a";
+        leadForm.reset();
+
+      } catch (error) {
+        console.error("Error al guardar lead:", error);
+        leadMsg.textContent = "Ocurrió un error. Intenta de nuevo más tarde.";
+        leadMsg.style.color = "#e53e3e";
+      }
+    });
+  </script>
+
+</body>
+</html>

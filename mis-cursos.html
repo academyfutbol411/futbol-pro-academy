@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mis Cursos y Progreso | Fútbol Pro Academy</title>
+  <style>
+    :root { --primary: #0b6b3a; --secondary: #12a05a; --dark: #0d1b14; --light-bg: #f4f8f5; --white: #ffffff; --gray: #65736c; --light-gray: #e0e8e3; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: var(--dark); background-color: var(--light-bg); line-height: 1.6; }
+
+    /* Navegación */
+    nav { display: flex; justify-content: space-between; align-items: center; padding: 18px 7%; background: var(--white); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+    .logo { font-size: 22px; font-weight: 800; color: var(--primary); text-decoration: none; }
+    .nav-links a { margin-left: 24px; text-decoration: none; color: var(--dark); font-weight: 600; }
+    .nav-links a:hover { color: var(--secondary); }
+
+    /* Header de Bienvenida */
+    .dashboard-header { padding: 50px 7%; background: linear-gradient(135deg, var(--primary), var(--dark)); color: var(--white); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+    .user-info h1 { font-size: 32px; margin-bottom: 8px; }
+    .user-info p { color: #e8f5ed; font-size: 16px; }
+    
+    .stats-box { background: rgba(255, 255, 255, 0.1); padding: 15px 25px; border-radius: 14px; backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.15); display: flex; gap: 20px; text-align: center; }
+    .stat-item h3 { font-size: 24px; color: #f3b72f; }
+    .stat-item span { font-size: 13px; color: #dbe9df; }
+
+    /* Contenido de Cursos */
+    section { padding: 60px 7%; }
+    .section-title { font-size: 28px; margin-bottom: 25px; font-weight: 800; }
+    
+    .courses-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
+    .course-card { background: var(--white); border-radius: 18px; overflow: hidden; box-shadow: 0 8px 30px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between; border: 1px solid rgba(0,0,0,0.04); }
+    .course-img { width: 100%; height: 160px; object-fit: cover; background: #ddd; }
+    .course-body { padding: 22px; }
+    .tag { display: inline-block; background: #eaf6ee; color: var(--primary); padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 700; margin-bottom: 10px; }
+    
+    .progress-container { margin: 15px 0; }
+    .progress-bar { height: 10px; background: var(--light-gray); border-radius: 10px; overflow: hidden; margin-top: 6px; }
+    .progress-fill { height: 100%; width: 0%; background: var(--secondary); transition: width 0.4s ease; }
+    
+    .course-footer { padding: 0 22px 22px 22px; }
+    .btn { display: block; text-align: center; padding: 12px; border-radius: 10px; text-decoration: none; font-weight: 800; background: var(--secondary); color: var(--white); transition: background 0.2s; }
+    .btn:hover { background: var(--primary); }
+
+    footer { background: #08120d; color: #9cb0a5; padding: 35px 7%; text-align: center; margin-top: 40px; }
+  </style>
+</head>
+<body>
+
+  <!-- Navegación -->
+  <nav>
+    <a href="index.html" class="logo">⚽ FÚTBOL PRO ACADEMY</a>
+    <div class="nav-links">
+      <a href="index.html">Inicio</a>
+      <a href="metodologia.html">Cursos</a>
+      <a href="mis-cursos.html" style="color: var(--secondary);">Mi Aula</a>
+      <a href="#" id="logout-btn" style="color: #e53e3e;">Cerrar Sesión</a>
+    </div>
+  </nav>
+
+  <!-- Header del Estudiante -->
+  <header class="dashboard-header">
+    <div class="user-info">
+      <h1 id="welcome-name">Hola, Futbolista 👋</h1>
+      <p>Bienvenido a tu panel de entrenamiento y seguimiento de progreso.</p>
+    </div>
+    <div class="stats-box">
+      <div class="stat-item">
+        <h3 id="stat-courses">0</h3>
+        <span>Cursos Activos</span>
+      </div>
+      <div class="stat-item">
+        <h3 id="stat-streak">🔥 5</h3>
+        <span>Días de Racha</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Listado de Cursos del Estudiante -->
+  <section>
+    <h2 class="section-title">Tus Programas Inscritos</h2>
+    <div class="courses-grid" id="student-courses-container">
+      <!-- Los cursos cargados de Firestore aparecerán aquí dinámicamente -->
+      <p style="color: var(--gray);">Cargando tus cursos y progreso...</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 Fútbol Pro Academy. Todos los derechos reservados.</p>
+  </footer>
+
+  <!-- Script Dinámico para conectar con Firebase Auth y Firestore -->
+  <script type="module">
+    import { auth, db } from "./js/firebase-config.js";
+    import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { collection, getDocs, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    const welcomeName = document.getElementById("welcome-name");
+    const container = document.getElementById("student-courses-container");
+    const statCourses = document.getElementById("stat-courses");
+    const logoutBtn = document.getElementById("logout-btn");
+
+    // Verificar si el usuario ha iniciado sesión
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        // Obtener datos del usuario desde Firestore
+        const userDoc = await getDoc(doc(db, "users", user.uid));
+        if (userDoc.exists()) {
+          welcomeName.textContent = `Hola, ${userDoc.data().name} 👋`;
+        }
+
+        // Cargar todos los cursos disponibles en la base de datos (para simular el acceso del estudiante)
+        try {
+          const querySnapshot = await getDocs(collection(db, "courses"));
+          container.innerHTML = "";
+          let count = 0;
+
+          querySnapshot.forEach((docSnap) => {
+            const course = docSnap.data();
+            const courseId = docSnap.id;
+            count++;
+
+            // Renderizar tarjeta de curso con barra de progreso interactiva
+            const card = document.createElement("div");
+            card.className = "course-card";
+            card.innerHTML = `
+              <div>
+                <img src="${course.imageUrl || 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=600'}" class="course-img" alt="Curso">
+                <div class="course-body">
+                  <span class="tag">${course.category || 'Fútbol Pro'}</span>
+                  <h3>${course.title}</h3>
+                  <p style="font-size: 14px; color: var(--gray); margin-top: 8px;">${course.description}</p>
+                  <div class="progress-container">
+                    <div style="display: flex; justify-content: space-between; font-size: 13px;">
+                      <span>Progreso del curso</span>
+                      <span style="font-weight: bold;">75%</span>
+                    </div>
+                    <div class="progress-bar">
+                      <div class="progress-fill" style="width: 75%;"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="course-footer">
+                <a href="leccion.html?courseId=${courseId}" class="btn">Continuar Lección</a>
+              </div>
+            `;
+            container.appendChild(card);
+          });
+
+          statCourses.textContent = count;
+
+        } catch (error) {
+          console.error("Error al cargar cursos:", error);
+          container.innerHTML = "<p style='color: red;'>Error al cargar el contenido de tus cursos.</p>";
+        }
+
+      } else {
+        // Si no hay sesión iniciada, redirigir al login
+        window.location.href = "login.html";
+      }
+    });
+
+    // Botón de Cerrar Sesión
+    logoutBtn.addEventListener("click", async (e) => {
+      e.preventDefault();
+      await signOut(auth);
+      window.location.href = "login.html";
+    });
+  </script>
+
+</body>
+</html>
