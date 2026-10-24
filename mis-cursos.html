@@ -1,149 +1,338 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Detalle del curso</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/estilos.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curso | Fútbol Pro Academy</title>
+  <style>
+    :root {
+      --primary: #0b6b3a;
+      --primary-dark: #084c29;
+      --secondary: #12a05a;
+      --accent: #f3b72f;
+      --dark: #0d1b14;
+      --light-bg: #f4f8f5;
+      --white: #ffffff;
+      --gray: #65736c;
+      --light-gray: #e0e8e3;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: var(--dark);
+      background-color: var(--light-bg);
+      line-height: 1.6;
+    }
+
+    /* Navegación */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 7%;
+      background: var(--white);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--primary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-links a {
+      margin-left: 24px;
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--secondary);
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 15px 28px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 16px;
+      border: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #162017;
+    }
+
+    .btn-full {
+      width: 100%;
+      text-align: center;
+    }
+
+    /* Encabezado del curso */
+    .curso-header {
+      padding: 70px 7% 40px 7%;
+      background: linear-gradient(135deg, var(--primary), var(--dark));
+      color: var(--white);
+    }
+
+    .curso-header .tag {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.15);
+      color: #e8f5ed;
+      padding: 6px 14px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .curso-header h1 {
+      font-size: 36px;
+      line-height: 1.2;
+      margin-bottom: 14px;
+      font-weight: 800;
+      max-width: 700px;
+    }
+
+    .curso-header p {
+      font-size: 17px;
+      color: #e8f5ed;
+      max-width: 620px;
+    }
+
+    /* Cuerpo */
+    main {
+      max-width: 620px;
+      margin: 0 auto;
+      padding: 50px 7% 90px 7%;
+    }
+
+    .card {
+      background: var(--white);
+      padding: 30px;
+      border-radius: 18px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+      border: 1px solid rgba(0, 0, 0, 0.03);
+    }
+
+    .price-tag {
+      font-size: 34px;
+      font-weight: 800;
+      color: var(--primary);
+      margin: 6px 0 20px 0;
+    }
+
+    .price-period {
+      font-size: 14px;
+      color: var(--gray);
+      font-weight: 400;
+    }
+
+    .form-section {
+      margin-top: 28px;
+      padding-top: 24px;
+      border-top: 1px solid var(--light-gray);
+    }
+
+    .form-section h2 {
+      font-size: 18px;
+      margin-bottom: 18px;
+    }
+
+    .campo {
+      margin-bottom: 16px;
+    }
+
+    .campo label {
+      display: block;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 6px;
+    }
+
+    .campo input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--light-gray);
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: inherit;
+    }
+
+    .campo input:focus {
+      outline: 2px solid var(--secondary);
+      outline-offset: 1px;
+    }
+
+    .nota {
+      font-size: 12px;
+      color: var(--gray);
+      margin-top: 4px;
+    }
+
+    .error-compra {
+      display: none;
+      color: #c0392b;
+      font-size: 14px;
+      margin-top: 12px;
+      font-weight: 600;
+    }
+
+    /* Footer */
+    footer {
+      background: #08120d;
+      color: #9cb0a5;
+      padding: 40px 7%;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .curso-header h1 { font-size: 28px; }
+    }
+  </style>
 </head>
-<body class="font-sans bg-white text-slate-800">
+<body>
 
-<header class="border-b border-slate-200 px-6 py-4 flex items-center justify-between">
-  <a href="index.html" class="font-semibold text-lg">[Tu marca]</a>
-  <nav class="flex gap-6 text-sm">
-    <a href="index.html" class="hover:text-indigo-600">Inicio</a>
-    <a href="cursos.html" class="hover:text-indigo-600">Cursos</a>
-    <a href="login.html" class="hover:text-indigo-600">Ingresar</a>
+  <!-- Navegación Principal (igual que el resto del sitio) -->
+  <nav>
+    <a href="index.html" class="logo">⚽ FÚTBOL PRO ACADEMY</a>
+    <div class="nav-links">
+      <a href="index.html">Inicio</a>
+      <a href="index.html#programas">Cursos</a>
+      <a href="mis-cursos.html">Mi Aula</a>
+      <a href="login.html">Ingresar</a>
+    </div>
   </nav>
-</header>
 
-<main class="max-w-2xl mx-auto px-6 py-16">
+  <!-- Encabezado del curso -->
+  <header class="curso-header">
+    <span class="tag">Técnica Individual</span>
+    <h1 id="curso-titulo">Crea tu primera página web con IA</h1>
+    <p id="curso-descripcion">Aprende a diseñar y publicar una página web completa usando asistentes de inteligencia artificial, sin escribir código desde cero.</p>
+  </header>
 
-  <!-- TODO: cuando conectes la base de datos real (Sprint 2), reemplaza estos datos de ejemplo -->
-  <div id="curso-info">
-    <h1 class="text-3xl font-semibold mb-2">Curso de ejemplo: Crea tu primera página web con IA</h1>
-    <p class="text-slate-500 mb-6">Aprende a diseñar y publicar una página web completa usando asistentes de inteligencia artificial, sin escribir código desde cero.</p>
-    <p class="text-2xl font-semibold text-indigo-600 mb-8">$49.900 COP</p>
-  </div>
+  <main>
+    <div class="card">
+      <div class="price-tag" id="curso-precio">$49.900 <span class="price-period">COP</span></div>
 
-  <!-- Formulario de compra: pide nombre y correo antes de ir a pagar -->
-  <form id="form-compra" class="bg-slate-50 border border-slate-200 rounded-2xl p-6 space-y-4">
-    <h2 class="font-semibold text-slate-700">Datos para tu inscripción</h2>
+      <div class="form-section">
+        <h2>Datos para tu inscripción</h2>
 
-    <div>
-      <label class="block text-sm font-medium text-slate-600 mb-1">Nombre completo</label>
-      <input type="text" id="comprador-nombre" required
-        class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-400 outline-none">
+        <form id="form-compra">
+          <div class="campo">
+            <label for="comprador-nombre">Nombre completo</label>
+            <input type="text" id="comprador-nombre" required placeholder="Tu nombre y apellido">
+          </div>
+
+          <div class="campo">
+            <label for="comprador-email">Correo electrónico</label>
+            <input type="email" id="comprador-email" required placeholder="tucorreo@email.com">
+            <p class="nota">Con este correo vas a entrar luego a "Mi Aula".</p>
+          </div>
+
+          <button type="submit" id="btn-comprar" class="btn btn-primary btn-full">
+            Comprar e ir a pagar con Mercado Pago
+          </button>
+
+          <p id="error-compra" class="error-compra"></p>
+        </form>
+      </div>
     </div>
+  </main>
 
-    <div>
-      <label class="block text-sm font-medium text-slate-600 mb-1">Correo electrónico</label>
-      <input type="email" id="comprador-email" required
-        class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-400 outline-none">
-      <p class="text-xs text-slate-400 mt-1">Con este correo vas a entrar luego a "Mis cursos".</p>
-    </div>
+  <footer>
+    <p>© 2026 Fútbol Pro Academy. Todos los derechos reservados.</p>
+    <p style="font-size: 13px; margin-top: 8px;">El primer LMS especializado en el desarrollo del ecosistema futbolístico latinoamericano.</p>
+  </footer>
 
-    <button type="submit" id="btn-comprar"
-      class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg px-4 py-3 text-sm transition">
-      Comprar e ir a pagar con Mercado Pago
-    </button>
+  <script>
+    // ============================================================
+    // CONFIGURACIÓN — pega aquí la URL de tu Web App de Apps Script
+    // ============================================================
+    const API_URL_PAGOS = "PEGA_AQUI_TU_URL_DE_WEB_APP_DE_PAGOS";
 
-    <p id="error-compra" class="hidden text-sm text-red-600"></p>
-  </form>
+    // Datos del curso que se está comprando
+    // TODO: cuando conectes el catálogo real, reemplaza esto según el curso elegido
+    const CURSO = {
+      id: "curso-1",
+      titulo: document.getElementById("curso-titulo").textContent,
+      precio: 49900,
+    };
 
-</main>
+    document.getElementById("form-compra").addEventListener("submit", async (e) => {
+      e.preventDefault();
 
-<footer class="border-t border-slate-200 px-6 py-8 text-sm text-slate-400 text-center">
-  © [Año] [Tu marca]
-</footer>
+      const btn = document.getElementById("btn-comprar");
+      const errorEl = document.getElementById("error-compra");
+      errorEl.style.display = "none";
 
-<script>
-// ============================================================
-// CONFIGURACIÓN — pega aquí la URL de tu Web App de Apps Script
-// (la que publicaste con el backend de pagos, Code.gs)
-// ============================================================
-const API_URL_PAGOS = "https://script.google.com/macros/s/AKfycbz7xuwOpe-oJIlgdPZm7W-YzXP2reK8_e6DvXLY8biTFeODQkp01_RsmhjMuglBx8m-MQ/exec";
-async function comprarPlan(btn) {
-  const email = prompt("Ingresa tu correo para continuar con el pago:");
-  if (!email) return; // si cancela, no pasa nada
+      const nombre = document.getElementById("comprador-nombre").value.trim();
+      const email = document.getElementById("comprador-email").value.trim();
 
-  const textoOriginal = btn.textContent;
-  btn.disabled = true;
-  btn.textContent = "Redirigiendo a Mercado Pago...";
+      const textoOriginal = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = "Generando tu link de pago...";
 
-  try {
-    const res = await fetch(API_URL_PAGOS, {
-      method: "POST",
-      headers: { "Content-Type": "text/plain;charset=utf-8" },
-      body: JSON.stringify({
-        action: "crearPreferencia",
-        cursoId: btn.dataset.plan,
-        cursoTitulo: btn.dataset.titulo,
-        precio: btn.dataset.precio,
-        nombre: "",
-        email: email,
-      }),
+      try {
+        const res = await fetch(API_URL_PAGOS, {
+          method: "POST",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify({
+            action: "crearPreferencia",
+            cursoId: CURSO.id,
+            cursoTitulo: CURSO.titulo,
+            precio: CURSO.precio,
+            nombre,
+            email,
+          }),
+        });
+
+        const data = await res.json();
+        if (!data.ok) throw new Error(data.error || "No se pudo crear el pago");
+
+        window.location.href = data.init_point;
+      } catch (err) {
+        errorEl.textContent = "Ocurrió un error: " + err.message;
+        errorEl.style.display = "block";
+        btn.disabled = false;
+        btn.textContent = textoOriginal;
+      }
     });
-
-    const data = await res.json();
-    if (!data.ok) throw new Error(data.error || "No se pudo crear el pago");
-
-    window.location.href = data.init_point; // redirige directo al checkout
-  } catch (err) {
-    alert("Ocurrió un error: " + err.message);
-    btn.disabled = false;
-    btn.textContent = textoOriginal;
-  }
-}
-// Datos del curso que se está comprando (de ejemplo, por ahora)
-const CURSO = {
-  id: "curso-1",
-  titulo: "Crea tu primera página web con IA",
-  precio: 49900,
-};
-
-document.getElementById("form-compra").addEventListener("submit", async (e) => {
-  e.preventDefault();
-
-  const btn = document.getElementById("btn-comprar");
-  const errorEl = document.getElementById("error-compra");
-  errorEl.classList.add("hidden");
-
-  const nombre = document.getElementById("comprador-nombre").value.trim();
-  const email = document.getElementById("comprador-email").value.trim();
-
-  btn.disabled = true;
-  btn.textContent = "Generando tu link de pago...";
-
-  try {
-    const res = await fetch(API_URL_PAGOS, {
-      method: "POST",
-      headers: { "Content-Type": "text/plain;charset=utf-8" },
-      body: JSON.stringify({
-        action: "crearPreferencia",
-        cursoId: CURSO.id,
-        cursoTitulo: CURSO.titulo,
-        precio: CURSO.precio,
-        nombre,
-        email,
-      }),
-    });
-
-    const data = await res.json();
-    if (!data.ok) throw new Error(data.error || "No se pudo crear el pago");
-
-    // Redirige al checkout de Mercado Pago
-    window.location.href = data.init_point;
-  } catch (err) {
-    errorEl.textContent = "Ocurrió un error: " + err.message;
-    errorEl.classList.remove("hidden");
-    btn.disabled = false;
-    btn.textContent = "Comprar e ir a pagar con Mercado Pago";
-  }
-});
-</script>
+  </script>
 </body>
 </html>
