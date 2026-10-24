@@ -538,7 +538,14 @@
             <li>Ruta de nivel Novato</li>
           </ul>
         </div>
-        <a href="#" class="btn btn-secondary" style="border-color: var(--primary); color: var(--primary); text-align: center;">empezar ahora</a>
+        <button
+          class="btn btn-secondary"
+          style="border-color: var(--primary); color: var(--primary); text-align: center; width: 100%;"
+          data-plan="plan-inicial"
+          data-titulo="Plan inicial"
+          data-precio="19900"
+          onclick="comprarPlan(this)"
+        >empezar ahora</button>
       </div>
 
       <!-- Plan Jugador Pro -->
@@ -556,7 +563,14 @@
             <li>Certificados digitales de avance</li>
           </ul>
         </div>
-        <a href="#" class="btn btn-primary" style="text-align: center;">Comenzar Prueba Pro</a>
+        <button
+          class="btn btn-primary"
+          style="text-align: center; width: 100%;"
+          data-plan="jugador-pro"
+          data-titulo="Jugador Pro"
+          data-precio="29900"
+          onclick="comprarPlan(this)"
+        >Comenzar Prueba Pro</button>
       </div>
 
       <!-- Plan Academia -->
@@ -573,7 +587,7 @@
             <li>Soporte y asesoría metodológica</li>
           </ul>
         </div>
-        <a href="#" class="btn btn-secondary" style="border-color: var(--primary); color: var(--primary); text-align: center;">Solicitar Acceso B2B</a>
+        <a href="#saber-mas" class="btn btn-secondary" style="border-color: var(--primary); color: var(--primary); text-align: center;">Solicitar Acceso B2B</a>
       </div>
     </div>
   </section>
@@ -613,6 +627,47 @@
       </form>
     </div>
   </section>
+
+  <!-- Pagos con Mercado Pago -->
+  <script>
+    // ============================================================
+    // Pega aquí la URL de tu Web App de Apps Script (backend de pagos)
+    // ============================================================
+    const API_URL_PAGOS = "PEGA_AQUI_TU_URL_DE_WEB_APP_DE_PAGOS";
+
+    async function comprarPlan(btn) {
+      const email = prompt("Ingresa tu correo para continuar con el pago:");
+      if (!email) return; // si cancela el prompt, no hace nada
+
+      const textoOriginal = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = "Redirigiendo a Mercado Pago...";
+
+      try {
+        const res = await fetch(API_URL_PAGOS, {
+          method: "POST",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify({
+            action: "crearPreferencia",
+            cursoId: btn.dataset.plan,
+            cursoTitulo: btn.dataset.titulo,
+            precio: btn.dataset.precio,
+            nombre: "",
+            email: email,
+          }),
+        });
+
+        const data = await res.json();
+        if (!data.ok) throw new Error(data.error || "No se pudo crear el pago");
+
+        window.location.href = data.init_point; // redirige directo al checkout
+      } catch (err) {
+        alert("Ocurrió un error: " + err.message);
+        btn.disabled = false;
+        btn.textContent = textoOriginal;
+      }
+    }
+  </script>
 
   <!-- Footer -->
   <footer>
