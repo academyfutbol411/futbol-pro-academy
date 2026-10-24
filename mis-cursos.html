@@ -66,7 +66,38 @@
 // (la que publicaste con el backend de pagos, Code.gs)
 // ============================================================
 const API_URL_PAGOS = "https://script.google.com/macros/s/AKfycbz7xuwOpe-oJIlgdPZm7W-YzXP2reK8_e6DvXLY8biTFeODQkp01_RsmhjMuglBx8m-MQ/exec";
+async function comprarPlan(btn) {
+  const email = prompt("Ingresa tu correo para continuar con el pago:");
+  if (!email) return; // si cancela, no pasa nada
 
+  const textoOriginal = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = "Redirigiendo a Mercado Pago...";
+
+  try {
+    const res = await fetch(API_URL_PAGOS, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({
+        action: "crearPreferencia",
+        cursoId: btn.dataset.plan,
+        cursoTitulo: btn.dataset.titulo,
+        precio: btn.dataset.precio,
+        nombre: "",
+        email: email,
+      }),
+    });
+
+    const data = await res.json();
+    if (!data.ok) throw new Error(data.error || "No se pudo crear el pago");
+
+    window.location.href = data.init_point; // redirige directo al checkout
+  } catch (err) {
+    alert("Ocurrió un error: " + err.message);
+    btn.disabled = false;
+    btn.textContent = textoOriginal;
+  }
+}
 // Datos del curso que se está comprando (de ejemplo, por ahora)
 const CURSO = {
   id: "curso-1",
